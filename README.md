@@ -1,7 +1,8 @@
 # Docker container with JupyterLab
 
 This dockerfile contains instruction to build container with Jupyter from Anaconda.  
-Also, there is GPU support for TensorFlow and PyTorch
+Also, there is GPU support for `TensorFlow`, `PyTorch`, `XGBoost`.  
+Additional packages: `OpenCV`, `CatBoost`
 
 ## Build
 Use this command for build:
