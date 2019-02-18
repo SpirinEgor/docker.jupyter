@@ -10,7 +10,7 @@ Use this command for build:
 sudo docker build -t name:tag <path/to/Dockerfile>
 ```
 (this may take a lot of time)  
-Or just download it from docker hub (9 GB):
+Or just download it from docker hub (24 GB):
 ```
 sudo docker pull voudy/jupyter
 ```
