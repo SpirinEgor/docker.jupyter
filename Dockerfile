@@ -63,8 +63,12 @@ RUN mkdir -p opencv/opencv-${OPENCV_VERSION}/build && \
 # install CatBoost (currently without GPU)
 RUN pip install catboost
 
+# install LGBM
+RUN apt install ocl-icd-libopencl1 ocl-icd-opencl-dev libboost-dev libboost-system-dev libboost-filesystem-dev -y
+RUN pip install lightgbm --install-option=--gpu
+
 # install additional packages and enable extenssions
-RUN pip install tqdm plotly ipywidgets && \
+RUN pip install tqdm plotly ipywidgets hyperopt && \
     jupyter nbextension enable --py --sys-prefix widgetsnbextension && \
     conda install -c conda-forge nodejs && \
     jupyter labextension install @jupyter-widgets/jupyterlab-manager && \

@@ -1,7 +1,7 @@
 # Docker container with JupyterLab
 
 This dockerfile contains instruction to build container with Jupyter from Anaconda.  
-Also, there is GPU support for `TensorFlow`, `PyTorch`, `XGBoost`.  
+Also, there is GPU support for `TensorFlow`, `PyTorch`, `XGBoost`, `LGBM`.  
 Additional packages: `OpenCV`, `CatBoost`
 
 ## Build
@@ -10,7 +10,7 @@ Use this command for build:
 sudo docker build -t name:tag <path/to/Dockerfile>
 ```
 (this may take a lot of time)  
-Or just download it from docker hub (24 GB):
+Or just download it from docker hub (~12 GB):
 ```
 sudo docker pull voudy/jupyter
 ```
