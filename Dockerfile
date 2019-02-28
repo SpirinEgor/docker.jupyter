@@ -18,7 +18,8 @@ RUN conda update conda && \
 RUN conda install tensorflow-gpu
 
 # install PyTorch
-RUN conda install pytorch torchvision -c pytorch
+RUN pip install https://download.pytorch.org/whl/cu100/torch-1.0.1.post2-cp37-cp37m-linux_x86_64.whl && \
+    pip install torchvision
 
 # Prepare and start JupyterLab
 # Using docs: https://jupyter-notebook.readthedocs.io/en/stable/public_server.html#docker-cmd
