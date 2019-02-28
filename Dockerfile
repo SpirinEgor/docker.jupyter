@@ -15,10 +15,13 @@ RUN conda update conda && \
     conda update anaconda --all
 
 # install TensorFlow
-RUN conda install tensorflow-gpu
+RUN pip install tensorflow-gpu
+
+# install  Keras
+RUN pip install keras
 
 # install PyTorch
-RUN conda install pytorch torchvision -c pytorch
+RUN pip install pytorch torchvision
 
 # install XGBoost
 RUN pip install xgboost
@@ -68,11 +71,12 @@ RUN apt install ocl-icd-libopencl1 ocl-icd-opencl-dev libboost-dev libboost-syst
 RUN pip install lightgbm --install-option=--gpu
 
 # install additional packages and enable extenssions
-RUN pip install tqdm plotly ipywidgets hyperopt && \
+RUN pip install tqdm plotly ipywidgets hyperopt jupyter-tensorboard && \
     jupyter nbextension enable --py --sys-prefix widgetsnbextension && \
     conda install -c conda-forge nodejs && \
     jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
-    jupyter labextension install @jupyterlab/plotly-extension
+    jupyter labextension install @jupyterlab/plotly-extension && \
+    jupyter labextension install jupyterlab_tensorboard
 
 # Prepare and start JupyterLab
 # Using docs: https://jupyter-notebook.readthedocs.io/en/stable/public_server.html#docker-cmd
