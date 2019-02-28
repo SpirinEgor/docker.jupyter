@@ -78,7 +78,6 @@ RUN pip install tqdm plotly ipywidgets hyperopt jupyter-tensorboard && \
     jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
     jupyter labextension install @jupyterlab/plotly-extension && \
     jupyter labextension install jupyterlab_tensorboard
->>>>>>> f243f197f10ec2c85bb9043769d7daf4ba02eda0
 
 # Prepare and start JupyterLab
 # Using docs: https://jupyter-notebook.readthedocs.io/en/stable/public_server.html#docker-cmd
