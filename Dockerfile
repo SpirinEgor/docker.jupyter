@@ -5,30 +5,28 @@ RUN apt update && \
     apt upgrade -y && \
     apt install -y wget git cmake
 
-# install anaconda with python 3.6
-RUN wget https://repo.continuum.io/archive/Anaconda3-5.2.0-Linux-x86_64.sh -O anaconda.sh -q && \
+# install anaconda with python 3.7
+RUN wget https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_64.sh -O anaconda.sh -q && \
 	chmod +x anaconda.sh && \
 	./anaconda.sh -b -p /usr/local/anaconda && \
 	rm anaconda.sh
 ENV PATH /usr/local/anaconda/bin:$PATH
-RUN conda update conda && \
-    conda update anaconda --all
+RUN conda update conda
 
 # install TensorFlow
-RUN pip install tensorflow-gpu
+RUN pip install tensorflow tensorflow-gpu
 
-# install  Keras
+# install Keras
 RUN pip install keras
 
 # install PyTorch
-RUN pip install https://download.pytorch.org/whl/cu100/torch-1.0.1.post2-cp36-cp36m-linux_x86_64.whl && \
-    pip install torchvision 
+RUN conda install pytorch torchvision cudatoolkit=10.1 -c pytorch 
 
 # install XGBoost
 RUN pip install xgboost
 
 # install OpenCV
-ENV OPENCV_VERSION=4.0.1
+ENV OPENCV_VERSION=4.1.2
 RUN apt install build-essential unzip pkg-config -y && \
     apt install libjpeg-dev libpng-dev libtiff-dev -y && \
     apt install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev -y && \
@@ -54,18 +52,19 @@ RUN mkdir -p opencv/opencv-${OPENCV_VERSION}/build && \
     -D BUILD_opencv_python2=NO \
     -D BUILD_opencv_python3=ON \
     -D PYTHON3_EXECUTABLE=/usr/local/anaconda/bin/python \
-    -D PYTHON3_INCLUDE_DIR=/usr/local/anaconda/include/python3.6m/ \
-    -D PYTHON3_LIBRARY=/usr/local/anaconda/lib/libpython3.6m.so \
-    -D PYTHON_LIBRARY=/usr/local/anaconda/lib/libpython3.6m.so \
-    -D PYTHON3_PACKAGES_PATH=/usr/local/anaconda/lib/python3.6/site-packages/ \
-    -D PYTHON3_NUMPY_INCLUDE_DIRS=/usr/local/anaconda/lib/python3.6/site-packages/numpy/core/include/ \
+    -D PYTHON3_INCLUDE_DIR=/usr/local/anaconda/include/python3.7m/ \
+    -D PYTHON3_LIBRARY=/usr/local/anaconda/lib/libpython3.7m.so \
+    -D PYTHON_LIBRARY=/usr/local/anaconda/lib/libpython3.7m.so \
+    -D PYTHON3_PACKAGES_PATH=/usr/local/anaconda/lib/python3.7/site-packages/ \
+    -D PYTHON3_NUMPY_INCLUDE_DIRS=/usr/local/anaconda/lib/python3.7/site-packages/numpy/core/include/ \
     .. && \
     make -j10 && \
     make install && \
     cd && rm -rf opencv
 
-# install CatBoost (currently without GPU)
-RUN pip install catboost
+# install CatBoost
+RUN conda config --add channels conda-forge && \
+    conda install catboost
 
 # install LGBM
 RUN apt install ocl-icd-libopencl1 ocl-icd-opencl-dev libboost-dev libboost-system-dev libboost-filesystem-dev -y
