@@ -78,6 +78,11 @@ RUN pip install tqdm plotly ipywidgets hyperopt jupyter-tensorboard && \
     jupyter labextension install @jupyterlab/plotly-extension && \
     jupyter labextension install jupyterlab_tensorboard
 
+# create environment
+RUN conda create -n workenv --clone base
+RUN echo "source activate workenv" > ~/.bashrc
+ENV PATH /opt/conda/envs/workenv/bin:$PATH
+
 # Prepare and start JupyterLab
 # Using docs: https://jupyter-notebook.readthedocs.io/en/stable/public_server.html#docker-cmd
 RUN mkdir working_dir
